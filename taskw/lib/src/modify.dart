@@ -75,6 +75,13 @@ class Modify {
         'new': _draft.tags,
       };
     }
+    if (!(const ListEquality())
+        .equals(_draft.annotations, _saved.annotations)) {
+      result['annotations'] = {
+        'old': _saved.annotations?.length ?? 0,
+        'new': _draft.annotations?.length ?? 0,
+      };
+    }
     return result;
   }
 
@@ -115,6 +122,10 @@ class Modify {
 
   void setTags(List<String>? tags) {
     _draft = _draft.copyWith(tags: () => tags);
+  }
+
+  void setAnnotations(List<Annotation>? annotations) {
+    _draft = _draft.copyWith(annotations: () => annotations);
   }
 
   void save({required DateTime Function() modified}) {
